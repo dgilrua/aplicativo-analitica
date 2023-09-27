@@ -100,7 +100,7 @@ Con el objetivo de asegurar la utilidad del análisis, se realiza un proceso de 
 
 <br>
 
-Como el dataset tiene un total de 32581 datos y los datos nulos no superan el 10%, se considera mejor eliminar los datos con variables nulas en lugar de imputarlos. Además, se eliminan 137 observaciones duplicadas. Posteriormente, se analiza la distribución de las variables person\_income y loan\_amount.
+Como el dataset tiene un total de 32581 datos y los datos nulos no superan el 10%, se considera mejor eliminar los datos con variables nulas en lugar de imputarlos. Además, se eliminan 137 observaciones duplicadas. Posteriormente, se analiza la distribución de las variables person\_income, person\_age, person\_emp\_length y loan\_amount.
 
 También se realiza un análisis de Boxplots con las variables person\_age y person\_emp\_length en busca de outliers.
 
