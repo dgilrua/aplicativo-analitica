@@ -182,9 +182,10 @@ selected = option_menu(
   }
 )
 
+if selected == 'Video':
+  st.video('https://www.youtube.com/watch?v=EcO911mUdiE')
+
 if selected == 'Scorecard':
-  
-  
   
   if st.session_state.clicked == False:
     
