@@ -365,7 +365,7 @@ if selected == 'Video':
 if selected == 'Reporte':
   col1, col2, col3 = st.columns([1,3,1])
   
-  with open('Reporte_Tecnico/reporte.md', "r",encoding='UTF-8') as markdown_file:
+  with open('reporte.md', "r",encoding='UTF-8') as markdown_file:
     col2.markdown(markdown_file.read(), unsafe_allow_html=True)
   
   
