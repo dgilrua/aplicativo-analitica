@@ -1,0 +1,10 @@
+,Variable,Chi P-Value
+0,person_home_ownership,0.0
+1,loan_intent,1.568915788032232e-97
+2,loan_grade,0.0
+3,cb_person_default_on_file,8.025750322514522e-206
+4,cb_person_cred_hist_length,0.08318653952459236
+5,age_group,4.002673478686825e-06
+6,income_group,0.0
+7,person_emp_length,6.882383954321108e-54
+8,loan_group,1.7935222704820144e-91

@@ -1,0 +1,5 @@
+,person_home_ownership,loan_intent,loan_grade,cb_person_default_on_file
+count,28435,28435,28435,28435
+unique,4,6,7,2
+top,RENT,EDUCATION,A,N
+freq,14461,5664,9326,23359

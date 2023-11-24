@@ -1,0 +1,2 @@
+,row,col,corr,row_iv,col_iv,drop_feature
+35,loan_grade,loan_int_rate,0.9335312773170171,0.8912082121131251,0.799311572589234,loan_int_rate

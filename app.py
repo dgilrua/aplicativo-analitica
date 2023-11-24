@@ -403,5 +403,165 @@ if selected == 'Reporte':
   with open('reporte.md', "r",encoding='UTF-8') as markdown_file:
     col2.markdown(markdown_file.read(), unsafe_allow_html=True)
   
+  descriptivos_numericos = pd.read_csv('descriptivos_numericos.csv')
+  col2.dataframe(descriptivos_numericos)
+  col2.markdown('''<center><em>Fig 1. Descriptivos categoricos</em></center>''', unsafe_allow_html=True)
   
+  descriptivos_categorical = pd.read_csv('descriptivos_categoricos.csv')
+  col2.dataframe(descriptivos_categorical, width=1000)
+  col2.markdown('''<center><em>Fig 2. Descriptivos numericos</em></center>''', unsafe_allow_html=True)
+  
+  col2.markdown('''
+                #### 2. **Limpieza de datos.**
+                <br>
+                Con el objetivo de asegurar la utilidad del análisis, se realiza un proceso de limpieza de datos. Inicialmente se obtiene la cantidad de valores nulos en cada variable con la siguiente tabla.
+                <br>
+                ''', unsafe_allow_html=True)
+  
+  datos_nulos = pd.read_csv('datos_nulos.csv')
+  col2.dataframe(datos_nulos, width=1000)
+  col2.markdown('''<center><em>Fig 3. Valores nulos</em></center>''', unsafe_allow_html=True)
+  
+  col2.markdown('''
+                #### 2. **Limpieza de datos.**
+                <br>
+                
+                Como el dataset tiene un total de 32581 datos y los datos nulos no superan el 10%, se considera mejor eliminar los datos con variables nulas en lugar de imputarlos. Además, se eliminan 137 observaciones duplicadas. Posteriormente, se analiza la distribución de las variables person\_income, person\_age, person\_emp\_length y loan\_amount.
+                
+                <br>
+                ''', unsafe_allow_html=True)
+  with open('reporte2.md', "r",encoding='UTF-8') as markdown_file:
+    col2.markdown(markdown_file.read(), unsafe_allow_html=True)
+  
+  col2.markdown('''
+
+#### 3. **Procesamiento de datos.**
+
+<br>
+
+Se realiza la discretización de las variables person\_age, person\_income y loan\_amnt; y se categorizan estos datos en nuevas variables como se muestra a continuación:
+
+<br>
+
+<center>
+
+|**age\_group**|**income\_group**|**loan\_group**|
+| :- | :- | :- |
+|20-25|low (4000-30000)|small (500-5000)|
+|25-30|low-middle (30000-50000)|medium (5000-10000)|
+|>30|middle (50000-70000)|large (10000-15000)|
+||middle-large (70000-100000)|very large (15000-35000)|
+||large (>100000)||
+
+</center>
+
+<br>
+<br>
+
+Posteriormente, se aplica un encoder a las variables categóricas en una copia del dataset para convertirlas en variables numéricas y poder realizar el análisis de correlaciones.
+
+<br>
+                ''', unsafe_allow_html=True)
+  
+  datos_escalados = pd.read_csv('datos_escalados.csv')
+  col2.dataframe(datos_escalados, width=1000)
+  col2.markdown('''<center><em>Fig 12. Datos escalados</em></center>''', unsafe_allow_html=True)
+  
+  col2.markdown('''
+                Se verifica que el encoder se aplicó correctamente con las imagenes anteriores, donde se muestran los 5 primeros datos del dataframe y todas las variables con información de tipo numérico, y se procede a escalar el data.frame con un escalamiento MinMax. Se escogió este tipo de escalamiento en lugar del escalamiento estándar, porque este último se ve afectado por valores atípicos, y como hay una cantidad considerable de ellos.
+
+<br>
+
+#### 4. **Selección de variables.**
+
+<br>
+
+Posteriormente se hace uso de diversas estrategias como la matriz de correlaciones, pruebas chi cuadrado, test ANOVA, análisis WoE y IV para escoger las variables estadísticamente significativas y evitar problemas de multicolinealidad en el modelo. A continuación se presenta la matriz de correlaciones entre las variables:
+
+<br>
+
+<div class='img_doc_full'>
+  <img src='https://imageshack.com/i/pmtDuwJpp'>
+  <br>
+  <em>Fig 14. Matriz Correlacion</em>
+</div>
+
+<br>
+<br>
+
+##### **Test de hipótesis de relevancia chi cuadrado**
+
+<br>
+
+La prueba de hipótesis de relevancia chi cuadrado, permite evaluar la relevancia de las variables categóricas con el siguiente juego de hipótesis:
+
+> $h_0$: La variable categórica es irrelevante. (Vp > alpha)
+
+> $h_1$: La variable categórica es relevante. (Vp < alpha)
+
+<br>
+                ''', unsafe_allow_html=True)
+  
+  chi2_tabla = pd.read_csv('chi2_tabla.csv')
+  col2.dataframe(chi2_tabla, width=1000)
+  col2.markdown('''<center><em>Fig 15. Chi2 tabla</em></center>''', unsafe_allow_html=True)
     
+  col2.markdown('''
+                Se puede apreciar que la única variable que no rechaza la hipótesis nula que indica irrelevancia estadística, es la variable cb\_person\_cred\_hist\_length, la cual hace referencia a los años de historial crediticio que tiene la persona.
+
+<br>
+
+##### **Test de hipótesis de relevancia ANOVA**
+
+<br>
+
+También se realizó un test ANOVA para cada variable continua, cuyos resultados fueron
+                ''', unsafe_allow_html=True)
+  anovaTabla = pd.read_csv('anovaTabla.csv')
+  col2.dataframe(anovaTabla, width=1000)
+  col2.markdown('''<center><em>Fig 16. Anova tabla</em></center>''', unsafe_allow_html=True)
+  
+  col2.markdown('''
+                De esta manera, como los Vp son tan pequeños, se acepta la significancia estadística de todas las variables continuas.
+
+<br>
+
+#### **Weight of Evidence (WoE) e Information Value (IV)**
+
+<br>
+
+Finalmente, se toma el criterio de Information Value como decisor para escoger las variables a tener en cuenta para la elaboración del modelo. A continuación se presentan las fórmulas para conseguir este resultado y se considerarán las variables cuyo IV sea superior a 0.02.
+
+<div class='img_doc'>
+  <img src='https://imageshack.com/i/pmE90ipjp'>
+  <br>
+  <em>Fig 17. Formula calculo Woe</em>
+</div>
+
+<br>
+
+<div class='img_doc'>
+  <img src='https://imageshack.com/i/pmfhrVxxp'>
+  <br>
+  <em>Fig 18. Formula calculo IV</em>
+</div>
+
+<br>
+
+Con estas formulas se hizo un calculo general para cada una de las variables y poder filtrar aquellas que tengan un IV superior a 0.02.
+                ''' , unsafe_allow_html=True)
+  
+  iv_score = pd.read_csv('iv_score.csv')
+  col2.dataframe(iv_score, width=1000)
+  col2.markdown('''<center><em>Fig 19. IV Score</em></center>''', unsafe_allow_html=True)
+  
+  col2.markdown('''
+                Ademas se realiza un calculo de colinealidad entre todas las variables para verificar cuales de estas tiene un alto valor
+                ''' , unsafe_allow_html=True)
+  corr_df = pd.read_csv('corr_df.csv')
+  col2.dataframe(corr_df, width=1000)
+  col2.markdown('''<center><em>Fig 20. Analisis colinealidad</em></center>''', unsafe_allow_html=True)
+  
+  with open('reporte3.md', "r",encoding='UTF-8') as markdown_file:
+    col2.markdown(markdown_file.read(), unsafe_allow_html=True)
+  
