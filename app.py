@@ -146,6 +146,21 @@ st.markdown(
     margin: 0 auto;
   }
   
+  .texto_inicio {
+    font-size: 1.1rem;
+    text-align: justify;
+  }
+  
+  .parrafo_texto_inifio {
+    line-height: 2.0; 
+    font-size: 1.5rem;
+    text-align: justify;
+  }
+  
+  .bold {
+    font-weight: bold;
+  }
+  
   """, unsafe_allow_html=True
 )
 
@@ -172,9 +187,9 @@ st.title('Analisis de :blue[riesgo crediticio]')
 
 selected = option_menu(
   menu_title=None,
-  options=['Video', 'Scorecard', 'Reporte'],
-  icons=['camera-video', 'bar-chart-line', 'file-earmark-pdf'],
-  default_index=1,
+  options=['Inicio','Scorecard', 'Reporte', 'Video'],
+  icons=['', 'bar-chart-line', 'file-earmark-pdf','camera-video'],
+  default_index=0,
   orientation='horizontal',
   styles={
     "menu": {"width": "120rem", "display": "flex", "justify-content": "space-between", "margin":"0"},
@@ -184,6 +199,23 @@ selected = option_menu(
 
 if selected == 'Video':
   st.video('https://www.youtube.com/watch?v=EcO911mUdiE')
+  
+if selected == 'Inicio':
+  st.title('Bienvenido a EasyScore')
+  col1, col2, col3 = st.columns([1,3,1])
+  col2.markdown('''
+                <div class='texto_inicio'>
+                <p class='parrafo_texto_inifio'>EasyScore es una herramienta que permite a los usuarios conocer su score crediticio de una manera rapida y sencilla.</p>
+                <br>
+                <p class='parrafo_texto_inifio'>Para conocer tu score crediticio solo debes seleccionar la opcion "Scorecard" en el menu de opciones.</p>
+                <p class='parrafo_texto_inifio'> Luego debes ingresar tus datos y darle al boton analizar, esto hara una prediccion de tu posible puntaje crediticio y como te ves tu en relacion a la poblacion </p>
+                <p class='parrafo_texto_inifio'>Para conocer mas sobre el score crediticio y el desarrollo de esta aplicacion puedes seleccionar la opcion "Reporte" en el menu de opciones.</p>
+                <p class='parrafo_texto_inifio'>Si deseas conocer mas sobre quienes somos puedes seleccionar la opcion "Video" en el menu de opciones.</p>
+                <br>
+                <p class='parrafo_texto_inifio bold'> Todos los datos ingresados en la aplicacion no son recopilados ni guardados para usos externos, tu eres el unico propietario de tus datos. para conocer mas sobre nuestra politica de privacidad haz click en el siguiente boton </p>
+                <button class='ef3psqc12')">Politica de privacidad</button>
+                </div>
+                ''', unsafe_allow_html=True)
 
 if selected == 'Scorecard':
   
@@ -199,18 +231,18 @@ if selected == 'Scorecard':
     
     person_emp_length = col1.number_input(':blue[Ingresa tu antiguedad laboral]', 0, 40, 0)
     
-    loan_intent = col2.selectbox(':blue[Ingresa el proposito del prestamo]', ['Personal', 'Educacion', 'Gastos Medicos', 'Empresa', 'Hogar', 'Consolidar deuda'], 
-                                placeholder='Selecciona el proposito del prestamo')
+    #loan_intent = col2.selectbox(':blue[Ingresa el proposito del prestamo]', ['Personal', 'Educacion', 'Gastos Medicos', 'Empresa', 'Hogar', 'Consolidar deuda'], 
+    #                           placeholder='Selecciona el proposito del prestamo')
                                 
-    loan_grade = col1.selectbox(':blue[Ingresa el grado de riesgo del prestamo]',
-                                ['A: Bajo riesgo', 'B: Bajo riesgo relativo', 'C: Riesgo moderado', 'D: Riesgo altamente moderado', 'E: Riesgo alto', 'F: Riesgo muy alto', 'G: Riesgo extremadamente alto'], 
-                                placeholder='Selecciona el grado del prestamo')
+    #loan_grade = col1.selectbox(':blue[Ingresa el grado de riesgo del prestamo]',
+    #                            ['A: Bajo riesgo', 'B: Bajo riesgo relativo', 'C: Riesgo moderado', 'D: Riesgo altamente moderado', 'E: Riesgo alto', 'F: Riesgo muy alto', 'G: Riesgo extremadamente alto'], 
+    #                            placeholder='Selecciona el grado del prestamo')
     
-    loan_amnt = col2.number_input(':blue[Ingresa el monto del prestamo]', 0, 1000000, 0)
+    #loan_amnt = col2.number_input(':blue[Ingresa el monto del prestamo]', 0, 1000000, 0)
     
-    loan_percent_income = col1.number_input(':blue[Ingresa el porcentaje de ganancia del prestamo]', 0.00, 100.00, 0.00, step=0.01)
+    #loan_percent_income = col1.number_input(':blue[Ingresa el porcentaje de ganancia del prestamo]', 0.00, 100.00, 0.00, step=0.01)
     
-    cb_person_default_on_file = col2.selectbox(':blue[Ingresa si tienes historial de incumplimiento crediticio]', ['Si', 'No'], placeholder='Selecciona si tienes historial de incumplimiento crediticio')
+    cb_person_default_on_file = col2.selectbox(':blue[Tienes incumplimientos crediticios en tu historia?]', ['Si', 'No'], placeholder='Selecciona si tienes historial de incumplimiento crediticio')
     
     #Establecer rangos para la variable de ingresos y prestamos
     
@@ -225,15 +257,14 @@ if selected == 'Scorecard':
     elif 100000 < person_income:
       incomme_group = 'high' 
     
-    if 0 <= loan_amnt <= 5000:
-      loan_group = 'small'
-    elif 5000 < loan_amnt <= 10000:
-      loan_group = 'medium'
-    elif 10000 < loan_amnt <= 15000:
-      loan_group = 'large'
-    elif 15000 < loan_amnt:
-      loan_group = 'very large'
-      
+    loan_group = 'medium'
+
+    loan_intent = 'Personal'
+    
+    loan_grade = 'C: Riesgo moderado'
+    
+    loan_percent_income = 0.26
+    loan_amnt = 0.29
     # Definir el boton de analisis
     
     boton = st.button(
@@ -281,19 +312,19 @@ if selected == 'Scorecard':
     elif loan_intent == 'Consolidar deuda':
       loan_intent = 'DEBTCONSOLIDATION'
     
-    if loan_grade == 'A: Bajo riesgo':
+    if person_home_ownership == 'OWN':
       loan_grade = 'A'
-    elif loan_grade == 'B: Bajo riesgo relativo':
+    elif person_home_ownership == 'MORTGAGE' and person_income > 6000:
       loan_grade = 'B'
     elif loan_grade == 'C: Riesgo moderado':
       loan_grade = 'C'
-    elif loan_grade == 'D: Riesgo altamente moderado':
+    elif person_home_ownership == 'MORTGAGE' and 4000 < person_income < 5000:
       loan_grade = 'D'
-    elif loan_grade == 'E: Riesgo alto':
+    elif person_home_ownership == 'MORTGAGE' and 2000 < person_income < 3000:
       loan_grade = 'E'
-    elif loan_grade == 'F: Riesgo muy alto':
+    elif person_home_ownership == 'MORTGAGE' and 1000 < person_income < 2000:
       loan_grade = 'F'
-    elif loan_grade == 'G: Riesgo extremadamente alto':
+    elif person_income == 0:
       loan_grade = 'G'
     
     if cb_person_default_on_file == 'Si':
@@ -318,7 +349,10 @@ if selected == 'Scorecard':
     score = int(score[0])
     
     if cb_person_default_on_file == 1:
-      score = score - 40
+      score = score - 50
+    
+    if cb_person_default_on_file == 0:
+      score = score + 20
     
     global_mean_score = 632
     
