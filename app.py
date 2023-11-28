@@ -225,11 +225,11 @@ if selected == 'Scorecard':
     
     col1, col2 = st.columns(2)
 
-    person_income = col1.number_input(':blue[Ingresa tus ganancias anuales (En dolares)]', 0, 5000000, 27000)
+    person_income = col1.number_input(':blue[Ingresa tus ganancias anuales (En dolares)]', 0, 5000000, 0)
     
     person_home_ownership = col2.selectbox(':blue[Ingresa tu tipo de vivienda]', ['Renta', 'Hipotecada', 'Propia', 'Otros'], placeholder='Selecciona tu tipo de vivienda')  
     
-    person_emp_length = col1.number_input(':blue[Ingresa tu antiguedad laboral (En años)]', 0, 40, 5)
+    person_emp_length = col1.number_input(':blue[Ingresa tu antiguedad laboral (En años)]', 0, 40, 0)
     
     #loan_intent = col2.selectbox(':blue[Ingresa el proposito del prestamo]', ['Personal', 'Educacion', 'Gastos Medicos', 'Empresa', 'Hogar', 'Consolidar deuda'], 
     #                           placeholder='Selecciona el proposito del prestamo')
