@@ -225,11 +225,11 @@ if selected == 'Scorecard':
     
     col1, col2 = st.columns(2)
 
-    person_income = col1.number_input(':blue[Ingresa tus ganancias mensuales]', 0, 5000000, 0)
+    person_income = col1.number_input(':blue[Ingresa tus ganancias anuales (En dolares)]', 0, 5000000, 27000)
     
-    person_home_ownership = col2.selectbox(':blue[Ingresa tu tipo de vivienda]', ['Hipotecada', 'Renta', 'Propia', 'Otros'], placeholder='Selecciona tu tipo de vivienda')  
+    person_home_ownership = col2.selectbox(':blue[Ingresa tu tipo de vivienda]', ['Renta', 'Hipotecada', 'Propia', 'Otros'], placeholder='Selecciona tu tipo de vivienda')  
     
-    person_emp_length = col1.number_input(':blue[Ingresa tu antiguedad laboral]', 0, 40, 0)
+    person_emp_length = col1.number_input(':blue[Ingresa tu antiguedad laboral (En años)]', 0, 40, 5)
     
     #loan_intent = col2.selectbox(':blue[Ingresa el proposito del prestamo]', ['Personal', 'Educacion', 'Gastos Medicos', 'Empresa', 'Hogar', 'Consolidar deuda'], 
     #                           placeholder='Selecciona el proposito del prestamo')
@@ -242,7 +242,7 @@ if selected == 'Scorecard':
     
     #loan_percent_income = col1.number_input(':blue[Ingresa el porcentaje de ganancia del prestamo]', 0.00, 100.00, 0.00, step=0.01)
     
-    cb_person_default_on_file = col2.selectbox(':blue[Tienes incumplimientos crediticios en tu historia?]', ['Si', 'No'], placeholder='Selecciona si tienes historial de incumplimiento crediticio')
+    cb_person_default_on_file = col2.selectbox(':blue[Tienes incumplimientos crediticios en tu historia?]', ['No', 'Si'], placeholder='Selecciona si tienes historial de incumplimiento crediticio')
     
     #Establecer rangos para la variable de ingresos y prestamos
     
